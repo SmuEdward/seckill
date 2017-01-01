@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main.java.com.seckill.dao.SuccessKillDao">
+	<insert id="insertSuccessKilled">
+	    insert into success_killed (seckill_id,user_phone) 
+	    values (
+	    	#{seckillId}, #{userPhone}
+	    );
+	</insert>
+	
+	
+	<select id="queryByIdWithSeckill">
+		select
+			sk.seckill_id,
+			sk.user_phone,
+			sk.state,
+			sk.create_time,
+			s.seckill_id "Seckill.seckill_id",
+			s.name "Seckill.name",
+			s.number "Seckill.number",
+			s.start_time "Seckill.start_time",
+			s.end_time "Seckill.end_time",
+			s.create_time "Seckill.create_time"
+		from 
+			seckill s inner join success_killed sk on s.seckill_id=sk.seckill_id
+		where s.seckill_id = #{seckillId}
+	</select>
+	
+	<!-- <update id="reduceNum">
+		update
+			seckill
+		set 
+			number = number-1
+		where
+			seckill_id = #{seckill_id}
+		And start_time <![CDATA[<=]]> #{killTime}
+		And end_time >=#{killTime}
+		And number>0;
+	</update>
+	
+	<select id = "queryById" parameterType="long" resultType="Seckill">
+		select seckill_id,name,number,start_time,end_time,create_time
+		from seckill
+		where sekill_id = #{seckillId};
+	</select>
+	
+	<select id = "queryAll" parameterType="int	" resultType="Seckill">
+		select seckill_id,name,number,start_time,end_time,create_time
+		from seckill
+		order by create_time desc
+		limit #{offset},#{limit};
+	</select> -->
+	<!-- <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="funkyNumber" property="funkyNumber"/>
+		<result column="roundingMode" property="roundingMode"/>
+	</resultMap> -->
+
+	<!-- <select id="getUser" resultMap="usermap">
+		select * from users
+	</select>
+	<insert id="insert">
+	    insert into users (id, name, funkyNumber, roundingMode) values (
+	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode}
+	    )
+	</insert> -->
+	
+	<!-- <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="funkyNumber" property="funkyNumber"/>
+		<result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+	</resultMap> -->
+	<!-- <select id="getUser2" resultMap="usermap2">
+		select * from users2
+	</select>
+	<insert id="insert2">
+	    insert into users2 (id, name, funkyNumber, roundingMode) values (
+	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+	    )
+	</insert> -->
+
+</mapper>
